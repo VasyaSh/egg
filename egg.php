@@ -6,7 +6,7 @@
 //
 
 class Egg {
-    
+
     function __construct(\Closure $callback) {
         ($this->_($callback))();
     }
@@ -33,7 +33,7 @@ new Egg(function() {
         if (count($parts) && strlen($parts[0])) {
             $this->route['controller'] = array_shift($parts) . 'Controller';
         }
-        if (count($parts)) {
+        if (count($parts) && strlen($parts[0])) {
             $this->route['action'] = array_shift($parts) . 'Action';
         }
         $this->route['params'] = $parts;
@@ -55,3 +55,5 @@ new Egg(function() {
 
     ${$router($_GET['path'])}();
 });
+
+// Go to http://...../egg.php?path=index/hello/Kitty
