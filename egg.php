@@ -1,10 +1,10 @@
 <?php
-//
-// Vasilii B. Shpilchin
-//
-// Go to //...../egg.php?path=index/hello/Kitty
-//
 
+namespace Egg;
+
+/**
+ * @author Vasilii B. Shpilchin <shpilchin@vasya.pro>
+ */
 class Egg {
 
     function __construct(\Closure $callback) {
@@ -12,10 +12,16 @@ class Egg {
     }
 
     private function _(\Closure $callback) {
-        return Closure::bind($callback, $this, 'Egg');
+        return \Closure::bind($callback, $this, Egg::class);
     }
 
 }
+
+//
+// An example
+// 
+// Go to //...../egg.php?path=index/hello/Kitty
+//
 
 new Egg(function() {
 
@@ -43,7 +49,7 @@ new Egg(function() {
     $indexController = $this->_(function() {
 
         $indexAction = $this->_(function($params) {
-            echo 'This is Egg';
+            echo 'This is Egg!';
         });
 
         $helloAction = $this->_(function($params) {
@@ -55,5 +61,3 @@ new Egg(function() {
 
     ${$router($_GET['path'])}();
 });
-
-// Go to http://...../egg.php?path=index/hello/Kitty
