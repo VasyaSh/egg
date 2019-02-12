@@ -21,6 +21,7 @@ class Egg {
 // An example
 // 
 // Go to //...../egg.php?path=index/hello/Kitty
+// Go to //...../egg.php?path=index/hello/Alisa
 //
 
 new Egg(function() {
@@ -47,16 +48,30 @@ new Egg(function() {
     });
 
     $indexController = $this->_(function() {
-
         $indexAction = $this->_(function($params) {
             echo 'This is Egg!';
         });
-
         $helloAction = $this->_(function($params) {
-            echo 'Hello, ', $params[0], '!';
+            if ((($this->modelHello)()->checkName)($params[0])) {
+                echo 'Welcome back, ', $params[0], '!';
+            } else {
+                echo 'Hello guest ', $params[0], '!';
+            }
         });
-
         ${$this->route['action']}($this->route['params']);
+    });
+
+    $this->modelHello = $this->_(function() {
+        $public = new \stdClass();
+        $known = [
+            'Kitty',
+            'Vasya'
+        ];
+        $checkName = function($name) use ($known) {
+            return in_array($name, $known);
+        };
+        $public->checkName = $checkName;
+        return $public;
     });
 
     ${$router($_GET['path'])}();
