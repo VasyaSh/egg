@@ -1,4 +1,8 @@
 <?php
+//
+// Vasilii B. Shpilchin
+//
+// Go to //...../egg.php?path=index/hello/Kitty
 
 class Egg {
 
