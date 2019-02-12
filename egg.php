@@ -3,11 +3,10 @@
 // Vasilii B. Shpilchin
 //
 // Go to //...../egg.php?path=index/hello/Kitty
+//
 
 class Egg {
-
-    private $instance_id;
-
+    
     function __construct(\Closure $callback) {
         ($this->_($callback))();
     }
